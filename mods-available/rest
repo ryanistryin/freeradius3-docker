@@ -157,7 +157,7 @@ rest {
 	#  5xx    server error  no            fail
 	#  xxx    -             no            invalid
 	accounting {
-		uri = "${..connect_uri}/Radius/acct?username=%{User-Name}&acctuniquesessionid=%{Acct-Unique-Session-ID}&acctstatustype=%{Acct-Status-Type}&acctsessiontime=%{Acct-Session-Time}&acctsessionid=%{Acct-Session-Id}&acctinputoctets=%{Acct-Input-Octets}&acctoutputoctets=%{Acct-Output-Octets}"
+		uri = "${..connect_uri}/Radius/acct?username=%{User-Name}&acctuniquesessionid=%{Acct-Unique-Session-ID}&acctstatustype=%{Acct-Status-Type}&acctsessiontime=%{Acct-Session-Time}&acctsessionid=%{Acct-Session-Id}&acctinputoctets=%{Acct-Input-Octets}&acctinputoctetsgigawords=%{Acct-Input-Gigawords}&acctoutputoctets=%{Acct-Output-Octets}&acctoutputoctetsgigawords=%{Acct-Output-Gigawords}"
 #		uri = "${..connect_uri}/user/%{User-Name}/sessions/%{Acct-Unique-Session-ID}"
 		method = 'get'
 #		tls = ${..tls}
