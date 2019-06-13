@@ -364,9 +364,9 @@ authorize {
 	#  initial set of packets that go back and forth to set up
 	#  TTLS or PEAP.
 	#
-	eap {
-		ok = return
-	}
+	#eap {
+	#	ok = return
+	#}
 
 	#
 	#  Pull crypt'd passwords from /etc/passwd or /etc/shadow,
@@ -512,7 +512,7 @@ authenticate {
 
 	#
 	#  Allow EAP authentication.
-	eap
+	#eap
 
 	#
 	#  The older configurations sent a number of attributes in
@@ -831,7 +831,7 @@ post-auth {
 		# Insert EAP-Failure message if the request was
 		# rejected by policy instead of because of an
 		# authentication failure
-		eap
+		#eap
 
 		#  Remove reply message if the response contains an EAP-Message
 		remove_reply_message_if_eap
@@ -900,7 +900,7 @@ post-proxy {
 	#  hidden inside of the EAP packet, and the end server will
 	#  reject the EAP request.
 	#
-	eap
+	#eap
 
 	#
 	#  If the server tries to proxy a request and fails, then the
