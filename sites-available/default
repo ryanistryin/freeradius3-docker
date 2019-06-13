@@ -1,4 +1,4 @@
-w######################################################################
+######################################################################
 #
 #	As of 2.0.0, FreeRADIUS supports virtual hosts using the
 #	"server" section, and configuration directives.
@@ -253,8 +253,11 @@ listen {
 #  need to setup hints for the remote radius server
 authorize {
 
-
 	rest
+	if (updated) {
+	    ok
+	}
+	#rest
 	if (ok || updated) {
 	    update control {
 	        Auth-Type := Rest
@@ -364,9 +367,9 @@ authorize {
 	#  initial set of packets that go back and forth to set up
 	#  TTLS or PEAP.
 	#
-	#eap {
-	#	ok = return
-	#}
+	eap {
+		ok = return
+	}
 
 	#
 	#  Pull crypt'd passwords from /etc/passwd or /etc/shadow,
@@ -465,6 +468,9 @@ authenticate {
 	#  password can be clear-text, or encrypted.
 	Auth-Type Rest {
 		rest
+		if (updated) {
+			ok
+		}
 	}
 	Auth-Type PAP {
 		pap
@@ -512,7 +518,7 @@ authenticate {
 
 	#
 	#  Allow EAP authentication.
-	#eap
+	eap
 
 	#
 	#  The older configurations sent a number of attributes in
@@ -602,10 +608,19 @@ accounting {
 	detail
 #	daily
 
+
+
+#    if (Acct-Status-Type == Interim-Update) {
+#        update request {
+#	    Tmp-Integer-0 := `/usr/bin/php -f /root/MikrotikUpdaterPHP/app-arg.php %{Framed-IP-Address}`
+#        }         
+#    }
+
 	#  Update the wtmp file
 	#
 	#  If you don't use "radlast", you can delete this line.
 	unix
+	#echo
 
 	#
 	#  For Simultaneous-Use tracking.
@@ -648,7 +663,7 @@ accounting {
 #	pgsql-voip
 
 	# For Exec-Program and Exec-Program-Wait
-	exec
+	#exec
 
 	#  Filter attributes from the accounting response.
 	attr_filter.accounting_response
@@ -735,8 +750,7 @@ post-auth {
 #	ldap
 
 	# For Exec-Program and Exec-Program-Wait
-	exec
-
+	#exec
 	#
 	#  Calculate the various WiMAX keys.  In order for this to work,
 	#  you will need to define the WiMAX NAI, usually via
@@ -831,7 +845,7 @@ post-auth {
 		# Insert EAP-Failure message if the request was
 		# rejected by policy instead of because of an
 		# authentication failure
-		#eap
+		eap
 
 		#  Remove reply message if the response contains an EAP-Message
 		remove_reply_message_if_eap
@@ -900,7 +914,7 @@ post-proxy {
 	#  hidden inside of the EAP packet, and the end server will
 	#  reject the EAP request.
 	#
-	#eap
+	eap
 
 	#
 	#  If the server tries to proxy a request and fails, then the
@@ -924,4 +938,3 @@ post-proxy {
 #	}
 }
 }
-
